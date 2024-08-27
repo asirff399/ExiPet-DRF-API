@@ -35,7 +35,7 @@ ALLOWED_HOSTS = ["*"]
 
 CORS_ALLOW_ALL_ORIGINS = True 
 
-# CSRF_TRUSTED_ORIGINS = ['https://smartcare-x3l9.onrender.com','https://*.127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://exipet-drf-api.onrender.com/','https://*.127.0.0.1']
 
 INSTALLED_APPS = [
     'corsheaders',
