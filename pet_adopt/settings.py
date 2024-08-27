@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from decouple import config
+import dj_database_url
 import environ
 env = environ.Env()
 environ.Env.read_env()
@@ -29,11 +30,12 @@ SECRET_KEY = env('SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 CORS_ALLOW_ALL_ORIGINS = True 
 
+# CSRF_TRUSTED_ORIGINS = ['https://smartcare-x3l9.onrender.com','https://*.127.0.0.1']
 
 INSTALLED_APPS = [
     'corsheaders',
@@ -100,14 +102,19 @@ REST_FRAMEWORK = {
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        # Replace this value with your local database's connection string.
+        default='postgresql://exipet_user:OTCULQBAMy3DqZuk969wiBCa7kYbNmap@dpg-cr6uqurtq21c73frph60-a.oregon-postgres.render.com/exipet',
+    )
 }
-
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
