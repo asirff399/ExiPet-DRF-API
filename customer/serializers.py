@@ -24,8 +24,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'confirm_password', 'image','user_type']
-        read_only_fields = ['user_type',]
+        fields = ['username', 'first_name', 'last_name', 'email', 'password', 'confirm_password', 'image',]
 
     def save(self, **kwargs):
         username = self.validated_data['username']
