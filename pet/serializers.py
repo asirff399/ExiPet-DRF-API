@@ -2,7 +2,7 @@ from rest_framework import serializers
 from .models import Pet,PetType,Adoption
 
 class PetSerializer(serializers.ModelSerializer):
-    pet_type = serializers.StringRelatedField(many=False)
+    pet_type = serializers.SlugRelatedField(slug_field='name', queryset=PetType.objects.all())
     author = serializers.StringRelatedField(many=False)
     class Meta:
         model = Pet
