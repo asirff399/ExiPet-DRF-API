@@ -66,8 +66,8 @@ class UserRegistrationApiView(APIView):
             email = EmailMultiAlternatives(email_subject,'',to=[user.email])
             email.attach_alternative(email_body,"text/html")
             email.send()
-            return Response("Check your mail for confirmation.")
-        return Response(serializer.errors)
+            return Response({'error':'Check your mail for confirmation.'})
+        return Response({'error':serializer.errors})
 
 def activate(request,uid64,token):
     try:
