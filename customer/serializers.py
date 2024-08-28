@@ -15,12 +15,12 @@ class ReviewSerializer(serializers.ModelSerializer):
     reviewer = serializers.StringRelatedField(many=False)
     class Meta:
         model = Review
-        fields = ['id','reviewer','pet','body','rating',]
-        read_only_fields = ['id','reviewer',]
+        fields = ['id','reviewer','pet','body','rating','created_on',]
+        read_only_fields = ['id','reviewer','created_on',]
 
 class RegistrationSerializer(serializers.ModelSerializer):
     confirm_password = serializers.CharField(write_only=True, required=True)
-    image = serializers.ImageField(required=True)
+    image = serializers.CharField(required=True)
 
     class Meta:
         model = User
@@ -33,6 +33,9 @@ class RegistrationSerializer(serializers.ModelSerializer):
         email = self.validated_data['email']
         password = self.validated_data['password']
         confirm_password = self.validated_data['confirm_password']
+
+        image=self.validated_data['image']
+        print(image)
 
         if password != confirm_password:
             raise serializers.ValidationError({'error': "Passwords don't match"})
@@ -50,6 +53,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
         user_type = 'Customer'  
 
         customer = Customer(user=user, image=image, user_type=user_type)
+        print(customer)
         customer.save()
 
         return user

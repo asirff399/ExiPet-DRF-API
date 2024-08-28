@@ -50,12 +50,13 @@ class UserRegistrationApiView(APIView):
     serializer_class = RegistrationSerializer
 
     def post(self,request):
+        print("inside  post") 
     
         serializer = self.serializer_class(data=request.data)
-
+        print("register serializer",serializer)
         if serializer.is_valid():
             user = serializer.save()
-            print(user)
+            print("inside register valid",user)
             token = default_token_generator.make_token(user)
             print('token', token)
             uid = urlsafe_base64_encode(force_bytes(user.pk))
@@ -67,7 +68,10 @@ class UserRegistrationApiView(APIView):
             email.attach_alternative(email_body,"text/html")
             email.send()
             return Response({'error':'Check your mail for confirmation.'})
-        return Response({'error':serializer.errors})
+        else:
+            print("Serializer errors",serializer.errors)
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    # return Response({'error':serializer.errors})
 
 def activate(request,uid64,token):
     try:
