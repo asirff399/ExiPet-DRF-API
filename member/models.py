@@ -8,5 +8,5 @@ class Member(models.Model):
     type = models.CharField(max_length=30, choices=MEMBER_TYPE_CHOICES)
 
     def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"
+        return f"{self.name} "
 
