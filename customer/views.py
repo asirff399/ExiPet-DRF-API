@@ -83,9 +83,9 @@ def activate(request,uid64,token):
     if user is not None and default_token_generator.check_token(user,token):
         user.is_active=True
         user.save()
-        return redirect('login')
+        return redirect('https://exipet.netlify.app/login.html')
     else:
-        return redirect('register')
+        return redirect('https://exipet.netlify.app/registration.html')
 
 class UserLoginApiView(APIView):
     def post(self,request):
@@ -101,7 +101,7 @@ class UserLoginApiView(APIView):
                 print(token)
                 print(_)
                 login(request,user)
-                return Response({'token':token.key,'user_id':user.id})
+                return Response({'token':token.key,'user_id':user.id ,'error':'Logged in Successfully'})
             else:
                 return Response({'error':'Invalid Credential'})
         else:
@@ -111,7 +111,7 @@ class UserLogoutApiView(APIView):
     def get(self,request):
         request.user.auth_token.delete()
         logout(request)
-        return redirect('login')
+        return redirect('https://exipet.netlify.app/login.html')
 
 class PasswordChangeView(APIView):
     # permission_classes=[IsAuthenticated]
